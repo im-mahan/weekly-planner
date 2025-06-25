@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schedule Table</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/vazir" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Vazir', sans-serif;
+      background-color: #1a202c;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .container {
+      max-width: 90%;
+      margin: 20px auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    th, td {
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 12px;
+      text-align: center;
+    }
+    th {
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+    .time-card {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      min-width: 100px;
+      height: 50px;
+    }
+    .time-card:hover {
+      opacity: 0.8;
+    }
+    .green {
+      background-color: rgb(0, 255, 153);
+    }
+    .red {
+      background-color: rgb(255, 0, 0);
+    }
+    .dark-mode {
+      background-color: #1a202c;
+    }
+  </style>
+</head>
+<body class="dark-mode">
+  <div class="container">
+    <table class="w-full">
+      <thead>
+        <tr>
+          <th class="border">Friday</th>
+          <th class="border">Thursday</th>
+          <th class="border">Wednesday</th>
+          <th class="border">Tuesday</th>
+          <th class="border">Monday</th>
+          <th class="border">Sunday</th>
+          <th class="border">Saturday</th>
+          <th class="border">Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="cell0900" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1000" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1100" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1200" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1300" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1400" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1500" class="border time-card" onclick="toggleColor(this)"></td>
+          <td class="border">9:00</td>
+        </tr>
+        <tr>
+          <td id="cell1000" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1100" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1200" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1300" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1400" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1500" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1600" class="border time-card" onclick="toggleColor(this)"></td>
+          <td class="border">10:00</td>
+        </tr>
+        <tr>
+          <td id="cell1100" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1200" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1300" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1400" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1500" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1600" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1700" class="border time-card" onclick="toggleColor(this)"></td>
+          <td class="border">11:00</td>
+        </tr>
+        <tr>
+          <td id="cell1200" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1300" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1400" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1500" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1600" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1700" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1800" class="border time-card" onclick="toggleColor(this)"></td>
+          <td class="border">12:00</td>
+        </tr>
+        <tr>
+          <td id="cell1300" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1400" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1500" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1600" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1700" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1800" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1900" class="border time-card" onclick="toggleColor(this)"></td>
+          <td class="border">13:00</td>
+        </tr>
+        <tr>
+          <td id="cell1400" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1500" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1600" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1700" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1800" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1900" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2000" class="border time-card" onclick="toggleColor(this)"></td>
+          <td class="border">14:00</td>
+        </tr>
+        <tr>
+          <td id="cell1500" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1600" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1700" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1800" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1900" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2000" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2100" class="border time-card" onclick="toggleColor(this)"></td>
+          <td class="border">15:00</td>
+        </tr>
+        <tr>
+          <td id="cell1600" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1700" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1800" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1900" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2000" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2100" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2200" class="border time-card" onclick="toggleColor(this)"></td>
+          <td class="border">16:00</td>
+        </tr>
+        <tr>
+          <td id="cell1700" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1800" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1900" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2000" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2100" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2200" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2300" class="border time-card" onclick="toggleColor(this)"></td>
+          <td class="border">17:00</td>
+        </tr>
+        <tr>
+          <td id="cell1800" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell1900" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2000" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2100" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2200" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2300" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2400" class="border time-card" onclick="toggleColor(this)"></td>
+          <td class="border">18:00</td>
+        </tr>
+        <tr>
+          <td id="cell1900" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2000" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2100" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2200" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2300" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2400" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2500" class="border time-card" onclick="toggleColor(this)"></td>
+          <td class="border">19:00</td>
+        </tr>
+        <tr>
+          <td id="cell2000" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2100" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2200" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2300" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2400" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2500" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2600" class="border time-card" onclick="toggleColor(this)"></td>
+          <td class="border">20:00</td>
+        </tr>
+        <tr>
+          <td id="cell2100" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2200" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2300" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2400" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2500" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2600" class="border time-card" onclick="toggleColor(this)"></td>
+          <td id="cell2700" class="border time-card" onclick="toggleColor(this)"></td>
+          <td class="border">21:00</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // Load saved state from localStorage
+    document.addEventListener('DOMContentLoaded', () => {
+      const cells = document.querySelectorAll('.time-card');
+      cells.forEach(cell => {
+        const cellId = cell.id;
+        const savedColor = localStorage.getItem(cellId);
+        if (savedColor) cell.className = `border time-card ${savedColor}`;
+        const savedClickCount = localStorage.getItem(`${cellId}_clicks`) || 0;
+        cell.dataset.clicks = savedClickCount;
+      });
+    });
+
+    // Toggle cell color
+    function toggleColor(cell) {
+      let clicks = parseInt(cell.dataset.clicks) || 0;
+      clicks = (clicks + 1) % 4;
+      cell.dataset.clicks = clicks;
+
+      let colorClass;
+      switch (clicks) {
+        case 0:
+          colorClass = '';
+          break;
+        case 1:
+          colorClass = 'green';
+          break;
+        case 2:
+          colorClass = '';
+          break;
+        case 3:
+          colorClass = 'red';
+          break;
+      }
+      cell.className = `border time-card ${colorClass}`;
+
+      // Save to localStorage
+      localStorage.setItem(cell.id, colorClass);
+      localStorage.setItem(`${cell.id}_clicks`, clicks);
+    }
+  </script>
+</body>
+</html>
