@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,12 +17,10 @@
       min-height: 100vh;
       margin: 0;
     }
-
     .container {
       max-width: 90%;
       margin: 20px auto;
     }
-
     table {
       width: 100%;
       border-collapse: separate;
@@ -32,18 +29,14 @@
       border-radius: 12px;
       overflow: hidden;
     }
-
-    th,
-    td {
+    th, td {
       border: 1px solid rgba(255, 255, 255, 0.2);
       padding: 12px;
       text-align: center;
     }
-
     th {
       background-color: rgba(0, 0, 0, 0.3);
     }
-
     .time-card {
       background-color: rgba(255, 255, 255, 0.1);
       border-radius: 10px;
@@ -53,37 +46,32 @@
       min-width: 100px;
       height: 50px;
     }
-
     .time-card:hover {
       opacity: 0.8;
     }
-
     .green {
       background-color: rgb(0, 255, 153);
     }
-
     .red {
       background-color: rgb(255, 0, 0);
     }
-
     .dark-mode {
       background-color: #1a202c;
     }
   </style>
 </head>
-
 <body class="dark-mode">
   <div class="container">
     <table class="w-full">
       <thead>
         <tr>
+          <th class="border">Saturday</th>
           <th class="border">Friday</th>
           <th class="border">Thursday</th>
           <th class="border">Wednesday</th>
           <th class="border">Tuesday</th>
           <th class="border">Monday</th>
           <th class="border">Sunday</th>
-          <th class="border">Saturday</th>
           <th class="border">Time</th>
         </tr>
       </thead>
@@ -223,22 +211,29 @@
   </div>
 
   <script>
-    // Load saved state from localStorage
+    // Load saved state from localStorage and reset unselected cells
     document.addEventListener('DOMContentLoaded', () => {
       const cells = document.querySelectorAll('.time-card');
       cells.forEach(cell => {
         const cellId = cell.id;
         const savedColor = localStorage.getItem(cellId);
-        if (savedColor) cell.className = `border time-card ${savedColor}`;
         const savedClickCount = localStorage.getItem(`${cellId}_clicks`) || 0;
         cell.dataset.clicks = savedClickCount;
+
+        if (savedColor) {
+          cell.className = `border time-card ${savedColor}`;
+        } else {
+          cell.className = `border time-card`;
+          localStorage.removeItem(cellId);
+          localStorage.removeItem(`${cellId}_clicks`);
+        }
       });
     });
 
     // Toggle cell color
     function toggleColor(cell) {
       let clicks = parseInt(cell.dataset.clicks) || 0;
-      clicks = (clicks + 1) % 4;
+      clicks = (clicks + 1) % 3;
       cell.dataset.clicks = clicks;
 
       let colorClass;
@@ -252,17 +247,18 @@
         case 2:
           colorClass = 'red';
           break;
-        case 3:
-          colorClass = '';
-          break;
       }
       cell.className = `border time-card ${colorClass}`;
 
       // Save to localStorage
-      localStorage.setItem(cell.id, colorClass);
-      localStorage.setItem(`${cell.id}_clicks`, clicks);
+      if (colorClass) {
+        localStorage.setItem(cell.id, colorClass);
+        localStorage.setItem(`${cell.id}_clicks`, clicks);
+      } else {
+        localStorage.removeItem(cell.id);
+        localStorage.removeItem(`${cell.id}_clicks`);
+      }
     }
   </script>
 </body>
-
 </html>
