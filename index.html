@@ -71,6 +71,24 @@
 
 <body>
   <div class="container">
+    <!-- دکمه‌ها و شمارنده‌ها -->
+    <div class="mb-6 text-center">
+      <div class="flex justify-center gap-4 mb-4">
+        <button onclick="exportSchedule()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          ذخیره در کلیپ‌بورد (Export)
+        </button>
+        <button onclick="importSchedulePrompt()" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+          وارد کردن اطلاعات (Import)
+        </button>
+      </div>
+      <div class="flex justify-center gap-6 text-sm">
+        <span>پر (سبز): <span id="green-count">0</span></span>
+        <span>شخصی (قرمز): <span id="red-count">0</span></span>
+        <span>خالی (خاکستری): <span id="empty-count">0</span></span>
+      </div>
+    </div>
+
+    <!-- جدول -->
     <table id="schedule-table" class="w-full">
       <thead>
         <tr id="table-head-row"></tr>
@@ -121,6 +139,22 @@
       tableBody.appendChild(tr);
     }
 
+    // شمارش رنگ‌ها و نمایش
+    function updateCounts() {
+      const cells = document.querySelectorAll('.time-card');
+      let green = 0, red = 0, empty = 0;
+
+      cells.forEach(cell => {
+        if (cell.classList.contains('green')) green++;
+        else if (cell.classList.contains('red')) red++;
+        else empty++;
+      });
+
+      document.getElementById('green-count').textContent = green;
+      document.getElementById('red-count').textContent = red;
+      document.getElementById('empty-count').textContent = empty;
+    }
+
     // بازیابی وضعیت ذخیره‌شده
     document.addEventListener('DOMContentLoaded', () => {
       const cells = document.querySelectorAll('.time-card');
@@ -136,9 +170,11 @@
           cell.className = `border time-card`;
         }
       });
+
+      updateCounts();
     });
 
-    // تغییر رنگ و ذخیره در localStorage
+    // تغییر رنگ و ذخیره
     function toggleColor(cell) {
       let clicks = parseInt(cell.dataset.clicks) || 0;
       clicks = (clicks + 1) % 3;
@@ -156,6 +192,60 @@
       } else {
         localStorage.removeItem(cell.id);
         localStorage.removeItem(`${cell.id}_clicks`);
+      }
+
+      updateCounts();
+    }
+
+    // استخراج اطلاعات به کلیپ‌بورد
+    function exportSchedule() {
+      const cells = document.querySelectorAll('.time-card');
+      const data = {};
+
+      cells.forEach(cell => {
+        const color = cell.classList.contains('green') ? 'green' :
+                      cell.classList.contains('red') ? 'red' : '';
+        const clicks = cell.dataset.clicks || '0';
+
+        if (color) {
+          data[cell.id] = { color, clicks };
+        }
+      });
+
+      const json = JSON.stringify(data);
+      navigator.clipboard.writeText(json)
+        .then(() => alert('اطلاعات با موفقیت در کلیپ‌بورد ذخیره شد!'))
+        .catch(() => alert('خطا در ذخیره‌سازی کلیپ‌بورد'));
+    }
+
+    // وارد کردن اطلاعات از کاربر و اعمال آن
+    function importSchedulePrompt() {
+      const input = prompt('اطلاعات JSON را وارد کنید:');
+      if (!input) return;
+
+      try {
+        const data = JSON.parse(input);
+
+        const cells = document.querySelectorAll('.time-card');
+        cells.forEach(cell => {
+          const item = data[cell.id];
+          if (item) {
+            cell.className = `border time-card ${item.color}`;
+            cell.dataset.clicks = item.clicks;
+            localStorage.setItem(cell.id, item.color);
+            localStorage.setItem(`${cell.id}_clicks`, item.clicks);
+          } else {
+            cell.className = 'border time-card';
+            cell.dataset.clicks = 0;
+            localStorage.removeItem(cell.id);
+            localStorage.removeItem(`${cell.id}_clicks`);
+          }
+        });
+
+        updateCounts();
+        alert('اطلاعات با موفقیت بارگذاری شد!');
+      } catch (e) {
+        alert('فرمت JSON نامعتبر است.');
       }
     }
   </script>
